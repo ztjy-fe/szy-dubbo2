@@ -70,9 +70,10 @@ export async function toInterface(
       intepretHandle,
     );
 
-    //如果是基本类型, 生成typescript的类型与js-to-java类型相对应 javaXXX;
     let methodDef = typeDef.methods[methodName];
 
+    //TODO 这里应该添加上是否是override的判断 ,override的 用户自己处理, 非override且自己
+    //如果是基本类型, 生成typescript的类型与js-to-java类型相对应 javaXXX;
     for (var i = 0, iLen = methodDef.params.length; i < iLen; i++) {
       var paramItem = methodDef.params[i];
       if (paramItem.isArray) {

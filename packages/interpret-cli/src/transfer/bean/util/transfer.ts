@@ -141,8 +141,12 @@ export async function fields2CtrContent(
               ? filedAst.name
               : 'java.util.List';
 
+            _classNam =
+              _classNam !== 'java.util.LinkedHashSet'
+              ? _classNam
+              : 'java.util.Set';
           fieldTrans.push(`${name}:java.${_classNam.substring(
-            filedAst.name.lastIndexOf('.') + 1,
+            _classNam.lastIndexOf('.') + 1,
           )}(${forEachStr}.map(paramItem=>{
           return ${j2Jtj(typeOption, {
             paramRefName: 'paramItem',
@@ -296,6 +300,8 @@ export function j2Jtj(
     return `${paramRefName}`; //时间类型 js2java可以直接识别;
   } else if (classPath === 'java.lang.Object') {
     return `${paramRefName}['__fields2java']?${paramRefName}['__fields2java']():${paramRefName}`;
+  } else if (classPath.startsWith('java.lang.Integer')) {
+    return `java.Integer(parseInt(${paramRefName}))`;
   } else if (classPath.startsWith('java.lang.')) {
     return `java.${classPath.substring(
       classPath.lastIndexOf('.') + 1,
