@@ -408,7 +408,7 @@ export class ZkRegistry implements IObservable<IRegistrySubscriber> {
       revision: '',
       version: dubboSetting.version,
       group: dubboSetting.group,
-      side: 'consumer',
+      side: 'consumer' + Date.now(),
       check: 'false',
     };
 
